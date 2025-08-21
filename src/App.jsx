@@ -6,6 +6,7 @@ import Loading from './components/Loading';
 import Footer from './components/Footer';
 import lightTheme from './config/theme';
 import './App.css';
+import { formatDate, generateId } from './utils';
 
 function App() {
   return (
@@ -39,7 +40,6 @@ function App() {
           }}
         >
           <h2>欢迎来到项目基础结构演示</h2>
-
           <div
             style={{
               display: 'grid',
@@ -82,7 +82,6 @@ function App() {
               </ul>
             </div>
           </div>
-
           <div
             style={{
               padding: '20px',
@@ -100,6 +99,25 @@ function App() {
               <li>实现状态管理</li>
               <li>构建完整的管理系统</li>
             </ol>
+          </div>
+          <div
+            style={{
+              padding: '20px',
+              backgroundColor: '#fff7e6',
+              borderRadius: '8px',
+              border: '1px solid #ffd591',
+              maxWidth: '600px',
+            }}
+          >
+            <h3>🔧 工具函数测试</h3>
+            <p>
+              <strong>当前时间：</strong>
+              {formatDate(new Date())}
+            </p>
+            <p>
+              <strong>随机ID：</strong>
+              {generateId()}
+            </p>
           </div>
         </main>
 
