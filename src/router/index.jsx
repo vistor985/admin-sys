@@ -5,6 +5,9 @@ import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 import NotFound from '../pages/NotFound';
 import useAuthStore from '../store/authStore';
+import UserManage from '../pages/UserManage';
+import UserAdd from '../pages/UserManage/UserAdd';
+import UserList from '../pages/UserManage/UserList';
 
 // 受保护的路由组件
 const ProtectedRoute = ({ children }) => {
@@ -29,27 +32,27 @@ const LoginRoute = ({ children }) => {
 };
 
 // 临时页面组件（后续会替换）
-const UserManage = () => (
-  <div>
-    <h1>用户管理</h1>
-    <p>用户管理功能正在开发中...</p>
-    <p>当前路径：{window.location.pathname}</p>
-  </div>
-);
+// const UserManage = () => (
+//   <div>
+//     <h1>用户管理</h1>
+//     <p>用户管理功能正在开发中...</p>
+//     <p>当前路径：{window.location.pathname}</p>
+//   </div>
+// );
 
-const UserList = () => (
-  <div>
-    <h1>用户列表</h1>
-    <p>显示所有用户的列表</p>
-  </div>
-);
+// const UserList = () => (
+//   <div>
+//     <h1>用户列表</h1>
+//     <p>显示所有用户的列表</p>
+//   </div>
+// );
 
-const UserAdd = () => (
-  <div>
-    <h1>添加用户</h1>
-    <p>添加新用户的表单</p>
-  </div>
-);
+// const UserAdd = () => (
+//   <div>
+//     <h1>添加用户</h1>
+//     <p>添加新用户的表单</p>
+//   </div>
+// );
 
 const ProductManage = () => (
   <div>
