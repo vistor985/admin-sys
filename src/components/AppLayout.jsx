@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Layout, Menu, Button, theme, Avatar, Dropdown, Space } from 'antd';
 import {
   MenuFoldOutlined,
@@ -14,39 +15,57 @@ import {
   BulbFilled,
 } from '@ant-design/icons';
 import useThemeStore from '../store/themeStore';
+import useAuthStore from '../store/authStore';
 
 const { Header, Sider, Content } = Layout;
 
-const AppLayout = ({ children }) => {
+const AppLayout = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
 
-  // 获取主题状态
+  // 获取状态
   const { mode, toggleTheme } = useThemeStore();
+  const { user, logout } = useAuthStore();
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  // 获取当前激活的菜单项
+  const getSelectedKeys = () => {
+    const path = location.pathname;
+    if (path.includes('dashboard')) return ['dashboard'];
+    if (path.includes('users')) return ['users'];
+    if (path.includes('products')) return ['products'];
+    if (path.includes('logs')) return ['logs'];
+    return ['dashboard'];
+  };
 
   const menuItems = [
     {
       key: 'dashboard',
       icon: <DashboardOutlined />,
       label: '仪表盘',
+      onClick: () => navigate('/dashboard'),
     },
     {
       key: 'users',
       icon: <TeamOutlined />,
       label: '用户管理',
+      onClick: () => navigate('/users'),
     },
     {
       key: 'products',
       icon: <ShoppingOutlined />,
       label: '商品管理',
+      onClick: () => navigate('/products'),
     },
     {
       key: 'logs',
       icon: <FileTextOutlined />,
       label: '日志管理',
+      onClick: () => navigate('/logs'),
     },
   ];
 
@@ -71,6 +90,14 @@ const AppLayout = ({ children }) => {
       danger: true,
     },
   ];
+
+  // 处理用户菜单点击
+  const handleUserMenuClick = ({ key }) => {
+    if (key === 'logout') {
+      logout();
+      navigate('/login');
+    }
+  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -101,7 +128,7 @@ const AppLayout = ({ children }) => {
 
         <Menu
           mode="inline"
-          defaultSelectedKeys={['dashboard']}
+          selectedKeys={getSelectedKeys()}
           items={menuItems}
           style={{ border: 'none' }}
         />
@@ -141,17 +168,13 @@ const AppLayout = ({ children }) => {
             <Dropdown
               menu={{
                 items: userMenuItems,
-                onClick: ({ key }) => {
-                  if (key === 'logout') {
-                    console.log('用户点击了退出登录');
-                  }
-                },
+                onClick: handleUserMenuClick,
               }}
               placement="bottomRight"
             >
               <Space style={{ cursor: 'pointer' }}>
                 <Avatar icon={<UserOutlined />} />
-                <span>管理员</span>
+                <span>{user?.name || '用户'}</span>
               </Space>
             </Dropdown>
           </Space>
@@ -166,7 +189,7 @@ const AppLayout = ({ children }) => {
             borderRadius: borderRadiusLG,
           }}
         >
-          {children}
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
