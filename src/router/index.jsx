@@ -8,6 +8,10 @@ import useAuthStore from '../store/authStore';
 import UserManage from '../pages/UserManage';
 import UserAdd from '../pages/UserManage/UserAdd';
 import UserList from '../pages/UserManage/UserList';
+import ProductCard from '../pages/ProductManage/ProductCard';
+import ProductManage from '../pages/ProductManage';
+import ProductForm from '../pages/ProductManage/ProductForm';
+import ProductList from '../pages/ProductManage/ProductList';
 
 // 受保护的路由组件
 const ProtectedRoute = ({ children }) => {
@@ -54,27 +58,27 @@ const LoginRoute = ({ children }) => {
 //   </div>
 // );
 
-const ProductManage = () => (
-  <div>
-    <h1>商品管理</h1>
-    <p>商品管理功能正在开发中...</p>
-    <p>当前路径：{window.location.pathname}</p>
-  </div>
-);
+// const ProductManage = () => (
+//   <div>
+//     <h1>商品管理</h1>
+//     <p>商品管理功能正在开发中...</p>
+//     <p>当前路径：{window.location.pathname}</p>
+//   </div>
+// );
 
-const ProductList = () => (
-  <div>
-    <h1>商品列表</h1>
-    <p>显示所有商品的列表</p>
-  </div>
-);
+// const ProductList = () => (
+//   <div>
+//     <h1>商品列表</h1>
+//     <p>显示所有商品的列表</p>
+//   </div>
+// );
 
-const ProductAdd = () => (
-  <div>
-    <h1>添加商品</h1>
-    <p>添加新商品的表单</p>
-  </div>
-);
+// const ProductAdd = () => (
+//   <div>
+//     <h1>添加商品</h1>
+//     <p>添加新商品的表单</p>
+//   </div>
+// );
 
 const LogManage = () => (
   <div>
@@ -165,10 +169,10 @@ const router = createBrowserRouter([
         path: 'products/list',
         element: <ProductList />,
       },
-      {
-        path: 'products/add',
-        element: <ProductAdd />,
-      },
+      // {
+      //   path: 'products/add',
+      //   element: <ProductAdd />,
+      // },
 
       // 日志管理
       {
