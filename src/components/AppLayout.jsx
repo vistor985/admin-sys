@@ -76,6 +76,19 @@ const AppLayout = () => {
       onClick: () => navigate('/logs'),
       permission: PERMISSIONS.LOG_VIEW,
     },
+    {
+      key: 'system',
+      icon: <SettingOutlined />,
+      label: '系统管理',
+      children: [
+        {
+          key: 'roles',
+          label: '角色管理',
+          onClick: () => navigate('/roles'),
+        },
+      ],
+      permission: PERMISSIONS.SYSTEM_ROLE_MANAGE,
+    },
   ];
 
   // 根据权限过滤菜单项

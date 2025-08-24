@@ -12,6 +12,7 @@ import ProductCard from '../pages/ProductManage/ProductCard';
 import ProductManage from '../pages/ProductManage';
 import ProductForm from '../pages/ProductManage/ProductForm';
 import ProductList from '../pages/ProductManage/ProductList';
+import RoleManage from '../pages/RoleManage';
 
 // 受保护的路由组件
 const ProtectedRoute = ({ children }) => {
@@ -190,6 +191,10 @@ const router = createBrowserRouter([
       {
         path: 'settings',
         element: <Settings />,
+      },
+      {
+        path: 'roles',
+        element: <RoleManage />,
       },
     ],
   },
