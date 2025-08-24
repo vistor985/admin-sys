@@ -16,6 +16,8 @@ import {
 } from '@ant-design/icons';
 import useThemeStore from '../store/themeStore';
 import useAuthStore from '../store/authStore';
+import Breadcrumb from './Breadcrumb';
+import usePermissions from '../hooks/usePermissions';
 
 const { Header, Sider, Content } = Layout;
 
@@ -42,32 +44,42 @@ const AppLayout = () => {
     return ['dashboard'];
   };
 
-  const menuItems = [
+  // 在AppLayout组件中添加权限检查
+  const { getFilteredMenuItems, PERMISSIONS } = usePermissions();
+
+  const allMenuItems = [
     {
       key: 'dashboard',
       icon: <DashboardOutlined />,
       label: '仪表盘',
       onClick: () => navigate('/dashboard'),
+      permission: PERMISSIONS.DASHBOARD_VIEW,
     },
     {
       key: 'users',
       icon: <TeamOutlined />,
       label: '用户管理',
       onClick: () => navigate('/users'),
+      permission: PERMISSIONS.USER_VIEW,
     },
     {
       key: 'products',
       icon: <ShoppingOutlined />,
       label: '商品管理',
       onClick: () => navigate('/products'),
+      permission: PERMISSIONS.PRODUCT_VIEW,
     },
     {
       key: 'logs',
       icon: <FileTextOutlined />,
       label: '日志管理',
       onClick: () => navigate('/logs'),
+      permission: PERMISSIONS.LOG_VIEW,
     },
   ];
+
+  // 根据权限过滤菜单项
+  const menuItems = getFilteredMenuItems(allMenuItems);
 
   const userMenuItems = [
     {
@@ -189,6 +201,7 @@ const AppLayout = () => {
             borderRadius: borderRadiusLG,
           }}
         >
+          <Breadcrumb />
           <Outlet />
         </Content>
       </Layout>
