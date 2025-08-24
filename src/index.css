@@ -8,53 +8,68 @@
   box-sizing: border-box;
 }
 
-/* 设置根元素 */
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 基础字体设置 */
+/* 设置全局字体 */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
     'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial,
     sans-serif;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.5;
   color: #333;
   background-color: #f0f2f5;
 }
 
-/* 链接样式 */
+/* 移除链接默认样式 */
 a {
-  color: #1890ff;
+  color: inherit;
   text-decoration: none;
-  transition: color 0.3s;
 }
 
 a:hover {
-  color: #40a9ff;
+  text-decoration: none;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
 }
 
 /* 通用工具类 */
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .text-center {
   text-align: center;
 }
 
-.full-height {
-  min-height: 100vh;
+.text-right {
+  text-align: right;
 }
 
-/* 响应式断点 */
-@media (max-width: 768px) {
-  body {
-    font-size: 12px;
-  }
+.mb-16 {
+  margin-bottom: 16px;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.mt-16 {
+  margin-top: 16px;
+}
+
+.mt-24 {
+  margin-top: 24px;
 }
