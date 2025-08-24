@@ -1,4 +1,7 @@
 import { create } from 'zustand';
+// 在userStore.js中导入日志功能
+import useLogStore, { LOG_ACTIONS, LOG_MODULES } from './logStore';
+import useAuthStore from './authStore';
 
 // 模拟用户数据
 const mockUsers = [
@@ -166,6 +169,27 @@ const useUserStore = create((set, get) => ({
 
       // 添加到模拟数据
       mockUsers.push(newUser);
+
+      // 记录操作日志
+      const currentUser = useAuthStore.getState().user;
+      if (currentUser) {
+        useLogStore.getState().addLog({
+          userId: currentUser.id,
+          username: currentUser.username,
+          userRole: currentUser.role,
+          action: LOG_ACTIONS.CREATE,
+          module: LOG_MODULES.USER,
+          target: '用户管理',
+          targetId: newUser.id,
+          method: 'POST',
+          url: '/api/users',
+          ip: '192.168.1.100',
+          userAgent: navigator.userAgent,
+          status: 'success',
+          message: `创建用户"${newUser.name}"成功`,
+          extra: { newUserId: newUser.id, newUserRole: newUser.role },
+        });
+      }
 
       // 刷新当前页面数据
       const { pagination, searchKeyword, filters } = get();

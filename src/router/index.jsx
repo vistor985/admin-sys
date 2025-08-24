@@ -13,6 +13,7 @@ import ProductManage from '../pages/ProductManage';
 import ProductForm from '../pages/ProductManage/ProductForm';
 import ProductList from '../pages/ProductManage/ProductList';
 import RoleManage from '../pages/RoleManage';
+import LogManage from '../pages/Log';
 
 // 受保护的路由组件
 const ProtectedRoute = ({ children }) => {
@@ -81,12 +82,12 @@ const LoginRoute = ({ children }) => {
 //   </div>
 // );
 
-const LogManage = () => (
-  <div>
-    <h1>日志管理</h1>
-    <p>查看系统操作日志</p>
-  </div>
-);
+// const LogManage = () => (
+//   <div>
+//     <h1>日志管理</h1>
+//     <p>查看系统操作日志</p>
+//   </div>
+// );
 
 const Profile = () => (
   <div>

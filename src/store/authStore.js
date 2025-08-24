@@ -1,5 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+// 在authStore.js的login方法中添加日志记录
+import useLogStore, { LOG_ACTIONS, LOG_MODULES } from './logStore';
+
+// 在login方法成功/失败时记录日志
+const addLog = useLogStore.getState().addLog;
 
 // 模拟用户数据（实际项目中这些数据来自后端）
 const mockUsers = [
@@ -66,10 +71,43 @@ const useAuthStore = create(
               isLoggedIn: true,
               loading: false,
             });
+
+            // 记录登录日志
+            addLog({
+              userId: userInfo.id,
+              username: userInfo.username,
+              userRole: userInfo.role,
+              action: LOG_ACTIONS.LOGIN,
+              module: LOG_MODULES.AUTH,
+              target: '系统登录',
+              method: 'POST',
+              url: '/api/auth/login',
+              ip: '192.168.1.100', // 实际项目中从请求获取
+              userAgent: navigator.userAgent,
+              status: 'success',
+              message: '用户登录成功',
+              extra: { loginType: 'password' },
+            });
+
             return { success: true };
           } else {
             // 登录失败
             set({ loading: false });
+            // 登录失败时记录日志
+            addLog({
+              userId: null,
+              username: username,
+              userRole: null,
+              action: LOG_ACTIONS.LOGIN,
+              module: LOG_MODULES.AUTH,
+              target: '系统登录',
+              method: 'POST',
+              url: '/api/auth/login',
+              ip: '192.168.1.100',
+              userAgent: navigator.userAgent,
+              status: 'failed',
+              message: '用户名或密码错误',
+            });
             return {
               success: false,
               message: '用户名或密码错误',
