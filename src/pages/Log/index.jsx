@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   Card,
   Table,
@@ -61,25 +61,37 @@ const LogManage = () => {
   const [isDetailModalVisible, setIsDetailModalVisible] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
 
+  // 搜索和筛选
+  const handleSearch = useCallback(
+    (page = 1) => {
+      getLogs({
+        page,
+        pageSize: pagination.pageSize,
+        keyword: searchValue,
+        userId: filters.userId,
+        action: filters.action,
+        module: filters.module,
+        status: filters.status,
+        dateRange: filters.dateRange,
+      });
+    },
+    [
+      getLogs,
+      pagination.pageSize,
+      searchValue,
+      filters.userId,
+      filters.action,
+      filters.module,
+      filters.status,
+      filters.dateRange,
+    ]
+  );
+
   // 初始化数据
   useEffect(() => {
     handleSearch();
     getStatistics();
-  }, []);
-
-  // 搜索和筛选
-  const handleSearch = (page = 1) => {
-    getLogs({
-      page,
-      pageSize: pagination.pageSize,
-      keyword: searchValue,
-      userId: filters.userId,
-      action: filters.action,
-      module: filters.module,
-      status: filters.status,
-      dateRange: filters.dateRange,
-    });
-  };
+  }, [handleSearch, getStatistics]);
 
   // 处理分页变化
   const handleTableChange = (paginationInfo) => {

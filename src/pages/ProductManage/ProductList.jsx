@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   Table,
   Button,
@@ -57,22 +57,32 @@ const ProductList = () => {
   const [searchValue, setSearchValue] = useState('');
   const [priceRange, setPriceRange] = useState([0, 50000]);
 
+  // 搜索和筛选
+  const handleSearch = useCallback(
+    (page = 1) => {
+      getProducts({
+        page,
+        pageSize: pagination.pageSize,
+        keyword: searchValue,
+        categoryId: filters.categoryId,
+        status: filters.status,
+        priceRange: priceRange,
+      });
+    },
+    [
+      getProducts,
+      pagination.pageSize,
+      searchValue,
+      filters.categoryId,
+      filters.status,
+      priceRange,
+    ]
+  );
+
   // 初始化数据
   useEffect(() => {
     handleSearch();
-  }, []);
-
-  // 搜索和筛选
-  const handleSearch = (page = 1) => {
-    getProducts({
-      page,
-      pageSize: pagination.pageSize,
-      keyword: searchValue,
-      categoryId: filters.categoryId,
-      status: filters.status,
-      priceRange: priceRange,
-    });
-  };
+  }, [handleSearch]);
 
   // 处理分页变化
   const handleTableChange = (paginationInfo) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   Table,
   Button,
@@ -47,21 +47,24 @@ const UserList = () => {
   const [editingUser, setEditingUser] = useState(null);
   const [searchValue, setSearchValue] = useState('');
 
+  // 搜索和筛选
+  const handleSearch = useCallback(
+    (page = 1) => {
+      getUsers({
+        page,
+        pageSize: pagination.pageSize,
+        keyword: searchValue,
+        role: filters.role,
+        status: filters.status,
+      });
+    },
+    [getUsers, pagination.pageSize, searchValue, filters.role, filters.status]
+  );
+
   // 初始化数据
   useEffect(() => {
     handleSearch();
-  }, []);
-
-  // 搜索和筛选
-  const handleSearch = (page = 1) => {
-    getUsers({
-      page,
-      pageSize: pagination.pageSize,
-      keyword: searchValue,
-      role: filters.role,
-      status: filters.status,
-    });
-  };
+  }, [handleSearch]);
 
   // 处理分页变化
   const handleTableChange = (paginationInfo) => {

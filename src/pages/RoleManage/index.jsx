@@ -42,7 +42,7 @@ const RoleManage = () => {
   // 初始化数据
   useEffect(() => {
     getRoles();
-  }, []);
+  }, [getRoles]);
 
   // 添加角色
   const handleAdd = () => {

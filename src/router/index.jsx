@@ -1,9 +1,12 @@
 import React from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
+import { ProtectedRoute, LoginRoute } from '../components/RouteComponents';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
 import NotFound from '../pages/NotFound';
+import Profile from '../pages/Profile';
+import Settings from '../pages/Settings';
 import useAuthStore from '../store/authStore';
 import UserManage from '../pages/UserManage';
 import UserAdd from '../pages/UserManage/UserAdd';
@@ -14,28 +17,6 @@ import ProductForm from '../pages/ProductManage/ProductForm';
 import ProductList from '../pages/ProductManage/ProductList';
 import RoleManage from '../pages/RoleManage';
 import LogManage from '../pages/Log';
-
-// 受保护的路由组件
-const ProtectedRoute = ({ children }) => {
-  const { isLoggedIn } = useAuthStore();
-
-  if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
-};
-
-// 登录路由组件
-const LoginRoute = ({ children }) => {
-  const { isLoggedIn } = useAuthStore();
-
-  if (isLoggedIn) {
-    return <Navigate to="/" replace />;
-  }
-
-  return children;
-};
 
 // 临时页面组件（后续会替换）
 // const UserManage = () => (
@@ -88,20 +69,6 @@ const LoginRoute = ({ children }) => {
 //     <p>查看系统操作日志</p>
 //   </div>
 // );
-
-const Profile = () => (
-  <div>
-    <h1>个人信息</h1>
-    <p>编辑个人资料</p>
-  </div>
-);
-
-const Settings = () => (
-  <div>
-    <h1>系统设置</h1>
-    <p>系统配置选项</p>
-  </div>
-);
 
 // 创建路由配置
 const router = createBrowserRouter([

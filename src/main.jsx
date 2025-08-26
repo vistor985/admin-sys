@@ -1,15 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
-import { ConfigProvider } from 'antd';
-import zhCN from 'antd/locale/zh_CN';
 import router from './router';
-import './index.css';
+import { initPerformanceMonitoring } from './utils/performance';
+
+// 初始化性能监控
+initPerformanceMonitoring();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ConfigProvider locale={zhCN}>
-      <RouterProvider router={router} />
-    </ConfigProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
